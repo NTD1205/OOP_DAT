@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="137.0" prefWidth="352.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="hust.soict.globalict.aims.gui.DeleteItemGUIController">
+   <children>
+      <VBox alignment="TOP_CENTER" layoutX="29.0" layoutY="14.0" prefHeight="81.0" prefWidth="294.0">
+         <children>
+            <Label text="Input item's ID to delete:">
+               <font>
+                  <Font name="Bell MT" size="20.0" />
+               </font>
+            </Label>
+            <TextField fx:id="deleteItem_IDTf" />
+         </children>
+      </VBox>
+      <HBox layoutX="58.0" layoutY="84.0" prefHeight="39.0" prefWidth="236.0" spacing="70.0">
+         <children>
+            <Button fx:id="deleteItem_DeleteBtn" mnemonicParsing="false" onAction="#deleteItem_DeleteBtn" text="Delete">
+               <font>
+                  <Font name="Bell MT" size="20.0" />
+               </font></Button>
+            <Button fx:id="deleteItem_CancelBtn" mnemonicParsing="false" onAction="#deleteItem_CancelBtn" text="Cancel">
+               <font>
+                  <Font name="Bell MT" size="20.0" />
+               </font></Button>
+         </children>
+      </HBox>
+   </children>
+</AnchorPane>
