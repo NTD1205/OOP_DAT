@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="294.0" prefWidth="356.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="hust.soict.globalict.aims.gui.PlayMediaGUIController">
+   <children>
+      <Label fx:id="PlayMediaGUI_TitleLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="4.0" layoutY="70.0" prefHeight="25.0" prefWidth="348.0">
+         <font>
+            <Font name="Bell MT" size="20.0" />
+         </font>
+      </Label>
+      <ScrollPane layoutY="95.0" prefHeight="193.0" prefWidth="356.0">
+         <content>
+            <VBox fx:id="PlayMediaGUI_ContentVBox" prefHeight="180.0" prefWidth="351.0" />
+         </content>
+      </ScrollPane>
+      <VBox prefHeight="61.0" prefWidth="281.0">
+         <children>
+            <Label alignment="CENTER" contentDisplay="CENTER" text="Input ID of Disc:  ">
+               <font>
+                  <Font name="Bell MT" size="20.0" />
+               </font>
+            </Label>
+            <TextField fx:id="PlayMediaGUI_IDInputTextField" prefHeight="31.0" prefWidth="219.0" />
+         </children>
+      </VBox>
+      <Button fx:id="PlayMediaGUI_PlayBtn" layoutX="295.0" layoutY="24.0" mnemonicParsing="false" text="Play" />
+   </children>
+</AnchorPane>

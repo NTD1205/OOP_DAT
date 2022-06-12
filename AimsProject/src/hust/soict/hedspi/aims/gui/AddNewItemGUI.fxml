@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.media.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="670.0" prefWidth="584.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="hust.soict.globalict.aims.gui.AddNewItemGUIController">
+   <children>
+      <HBox layoutX="3.0" layoutY="14.0" prefHeight="0.0" prefWidth="569.0">
+         <children>
+            <Label prefHeight="37.0" prefWidth="236.0" text="CHOOSE MEDIA TYPE:">
+               <font>
+                  <Font name="Bell MT Bold" size="20.0" />
+               </font></Label>
+            <ChoiceBox fx:id="newItem_Choicebox" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="32.0" prefWidth="107.0">
+               <HBox.margin>
+                  <Insets top="5.0" />
+               </HBox.margin></ChoiceBox>
+         </children>
+      </HBox>
+      <VBox layoutX="3.0" layoutY="48.0" prefHeight="236.0" prefWidth="569.0">
+         <children>
+            <Label fx:id="newItem_IDLabel" text="ID*:">
+               <font>
+                  <Font name="Bell MT" size="15.0" />
+               </font>
+            </Label>
+            <TextField fx:id="newItem_IDTf" prefHeight="44.0" prefWidth="569.0" promptText="String" />
+            <Label fx:id="newItem_TitleLabel" text="Title*:">
+               <font>
+                  <Font name="Bell MT" size="20.0" />
+               </font>
+            </Label>
+            <TextField fx:id="newItem_TitleTf" promptText="String" />
+            <Label fx:id="newItem_CategoryLabel" text="Category*:">
+               <font>
+                  <Font name="Bell MT" size="20.0" />
+               </font>
+            </Label>
+            <TextField fx:id="newItem_CategoryTf" promptText="String" />
+            <Label fx:id="newItem_CostLabel" text="Cost*:">
+               <font>
+                  <Font name="Bell MT" size="20.0" />
+               </font>
+            </Label>
+            <TextField fx:id="newItem_CostTf" promptText="Float" />
+         </children>
+      </VBox>
+      <HBox layoutX="346.0" layoutY="617.0" prefHeight="25.0" prefWidth="226.0" spacing="60.0">
+         <children>
+            <Button fx:id="newItem_AddBtn" mnemonicParsing="false" onAction="#AddBtn" prefHeight="39.0" prefWidth="96.0" text="Add">
+               <font>
+                  <Font name="Bell MT" size="20.0" />
+               </font></Button>
+            <Button fx:id="newItem_CancelBtn" mnemonicParsing="false" onAction="#CancelBtn" prefHeight="39.0" prefWidth="97.0" text="Cancel">
+               <font>
+                  <Font name="Bell MT" size="20.0" />
+               </font></Button>
+         </children>
+      </HBox>
+      <StackPane layoutX="3.0" layoutY="263.0" prefHeight="332.0" prefWidth="569.0">
+         <children>
+            <VBox fx:id="newItem_BookVbox" prefHeight="211.0" prefWidth="569.0" visible="false">
+               <children>
+                  <Label fx:id="newItem_ContentLabel" text="Content*:">
+                     <font>
+                        <Font name="Bell MT" size="20.0" />
+                     </font>
+                  </Label>
+                  <TextArea fx:id="newItem_ContentTa" prefHeight="128.0" prefWidth="569.0" promptText="String" />
+                  <Label fx:id="newItem_AuthorListLabel" text="Authorlist*:">
+                     <font>
+                        <Font name="Bell MT" size="20.0" />
+                     </font>
+                  </Label>
+                  <TextArea fx:id="newItem_AuthorlistTa" prefHeight="128.0" prefWidth="569.0" promptText="String (author's names separated by commas)" />
+               </children>
+            </VBox>
+            <VBox fx:id="newItem_DVDVbox" prefHeight="211.0" prefWidth="569.0" visible="false">
+               <children>
+                  <Label fx:id="newItem_LengthLabel" text="Length*:">
+                     <font>
+                        <Font name="Bell MT" size="20.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="newItem_LengthTf" prefHeight="31.0" prefWidth="569.0" promptText="Integer" />
+                  <Label fx:id="newItem_DirectorLabel" text="Director*:">
+                     <font>
+                        <Font name="Bell MT" size="20.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="newItem_DirectorTf" promptText="String" />
+               </children>
+            </VBox>
+            <VBox fx:id="newItem_CDVbox" prefHeight="235.0" prefWidth="569.0" spacing="5.0">
+               <children>
+                  <Label fx:id="newItem_ArtistLabel" text="Artist*:">
+                     <font>
+                        <Font name="Bell MT" size="20.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="newItem_ArtistTf" promptText="String" />
+                  <HBox prefHeight="25.0" prefWidth="226.0" spacing="20.0">
+                     <children>
+                        <Label fx:id="newItem_TrackLabel" prefHeight="39.0" prefWidth="66.0" text="Tracks:">
+                           <font>
+                              <Font name="Bell MT" size="20.0" />
+                           </font>
+                        </Label>
+                        <Button fx:id="newItem_AddTrackBtn" mnemonicParsing="false" onAction="#addTrackBtn" prefHeight="39.0" prefWidth="126.0" text="Add Track">
+                           <font>
+                              <Font name="Bell MT" size="20.0" />
+                           </font>
+                        </Button>
+                        <Button fx:id="newItem_RemoveTrackBtn" mnemonicParsing="false" onAction="#removeTrackBtn" prefHeight="39.0" prefWidth="154.0" text="Remove Track">
+                           <font>
+                              <Font name="Bell MT" size="20.0" />
+                           </font>
+                        </Button>
+                        <Button fx:id="newItem_PlayAllTracks" mnemonicParsing="false" onAction="#playAllTracksBtn" prefHeight="39.0" prefWidth="163.0" text="Play All Tracks">
+                           <font>
+                              <Font name="Bell MT" size="20.0" />
+                           </font>
+                        </Button>
+                     </children>
+                  </HBox>
+                  <TableView fx:id="newItem_TrackTableview" prefHeight="178.0" prefWidth="578.0">
+                    <columns>
+                      <TableColumn fx:id="newItem_TrackTableview_No" prefWidth="47.0" text="No" />
+                      <TableColumn fx:id="newItem_TrackTableview_Title" prefWidth="434.0" text="Title" />
+                        <TableColumn fx:id="newItem_TrackTableview_Length" prefWidth="96.0" text="Length" />
+                    </columns>
+                  </TableView>
+                  <AnchorPane prefHeight="59.0" prefWidth="569.0">
+                     <children>
+                        <TextField fx:id="newItem_TotalLengthTf" alignment="CENTER_RIGHT" layoutX="414.0" layoutY="11.0" prefHeight="31.0" prefWidth="107.0" />
+                        <Label layoutX="289.0" layoutY="16.0" prefHeight="25.0" prefWidth="118.0" text="Total Length:">
+                           <font>
+                              <Font name="Bell MT" size="20.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="525.0" layoutY="16.0" prefHeight="25.0" prefWidth="53.0" text="min(s)">
+                           <font>
+                              <Font name="Bell MT" size="20.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </AnchorPane>
+               </children>
+            </VBox>
+         </children>
+      </StackPane>
+      <Label fx:id="newItem_IDLabel1" layoutX="3.0" layoutY="624.0" text="*: Required informations, must not be blank">
+         <font>
+            <Font name="Bell MT Italic" size="20.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>
