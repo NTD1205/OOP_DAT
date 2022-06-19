@@ -37,8 +37,8 @@ public class Order extends Media{
     	Media luckyItem = this.getALuckyItem();
         double totalCost = 0.0;
         for (int i = 0; i<itemsOrdered.size();i++){
-        	if (luckyItem != null && itemsOrdered.get(i) == luckyItem) continue;
-            totalCost +=  itemsOrdered.get(i).getCost();
+        		if (luckyItem != null && itemsOrdered.get(i) == luckyItem) continue;
+        		totalCost +=  itemsOrdered.get(i).getCost();
         }
         return totalCost;
     }
@@ -180,6 +180,7 @@ public class Order extends Media{
 	public void addBookGUI(Book book) {
 		itemsOrdered.add(book);
 	}
+	
 	
 	public void addCompactDisc(CompactDisc cd) throws NumberFormatException, IOException, PlayerException {
 		if(itemsOrdered.size() >= MAX_NUMBERS_ORDERED){

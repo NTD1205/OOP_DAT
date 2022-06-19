@@ -4,6 +4,7 @@ public class MediaType {
 	private String mediaType;
 	private int mediaID;
 	
+	
 	public String getMediaType() {
 		return mediaType;
 	}

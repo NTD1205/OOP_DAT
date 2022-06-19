@@ -1,4 +1,4 @@
-package hust.soict.hedspi.aims.gui;
+package hust.soict.hedspi.aims;
 
 
 import java.io.BufferedReader;

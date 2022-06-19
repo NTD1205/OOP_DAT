@@ -1,4 +1,4 @@
-package hust.soict.hedspi.aims.gui;
+package hust.soict.hedspi.aims.media;
 
 
 import java.io.BufferedReader;
@@ -97,6 +97,7 @@ public class CompactDisc extends Disc implements Playable, Comparable<Object>{
 			}
 		}
 	}
+	
 	
 	@Override
 	public int compareTo(Object o) {

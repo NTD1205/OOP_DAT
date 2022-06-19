@@ -1,5 +1,4 @@
-package hust.soict.hedspi.aims.gui;
-
+package hust.soict.hedspi.aims.media;
 
 import java.io.IOException;
 import java.util.Scanner;
@@ -95,10 +94,16 @@ public class DigitalVideoDisc extends Disc implements Playable, Comparable<Objec
 		if (match_count == split_Title.length) return true;
 		else return false;	
     }
-    public void play() {
-		System.out.println("Playing DVD: " + this.getTitle());
-		System.out.println("DVD length: " + this.getLength());
-	}
+    public void play() throws PlayerException {
+    	if (this.getLength() >0) {
+    		System.out.println("Playing DVD: " + this.getTitle());
+        	System.out.println("DVD length: " + this.getLength());	
+    	} else {
+    		System.err.println("DVD's length must be positive!");
+    		throw new PlayerException("DVD's length is illegal!");
+    	}
+    	
+    }
 
 	@Override
 	public int compareTo(Object o) {

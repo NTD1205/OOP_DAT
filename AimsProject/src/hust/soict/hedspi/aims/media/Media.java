@@ -5,6 +5,7 @@ import java.io.InputStreamReader;
 
 public abstract class Media implements Comparable<Object>{
 
+	
 	public Media() {
 	}
 	public Media(String title) {
