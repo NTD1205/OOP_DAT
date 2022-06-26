@@ -1,186 +1,269 @@
 package hust.soict.hedspi.aims;
 
+import java.awt.Dimension;
+import java.awt.Toolkit;
+//import java.util.ArrayList;
+import java.util.Scanner;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.util.Collections;
-import java.util.List;
+import javax.swing.JFrame;
 
-import hust.soict.hedspi.aims.media.Book;
-import hust.soict.hedspi.aims.media.CompactDisc;
-import hust.soict.hedspi.aims.media.DigitalVideoDisc;
+import hust.soict.hedspi.aims.exceptions.CreateOrderException;
+import hust.soict.hedspi.aims.exceptions.PlayerException;
+import hust.soict.hedspi.aims.media.book.Book;
+import hust.soict.hedspi.aims.media.disc.CompactDisc;
+import hust.soict.hedspi.aims.media.disc.DigitalVideoDisc;
+import hust.soict.hedspi.aims.media.disc.Track;
 import hust.soict.hedspi.aims.order.Order;
-import hust.soict.hedspi.aims.utils.MemoryDaemon;
-public class Aims {
-	private static BufferedReader sysIn = new BufferedReader(new InputStreamReader(System.in));
-    public static void main(String args[]) throws Exception{
-//		Lab 03;
-//    	System.out.println("Lab03");
-//        Order anOrder = new Order();
-//
-//        DigitalVideoDisc dvd1 = new DigitalVideoDisc("The Lion King", "Animation","Roger Allers",87,19.95f);
-//        anOrder.addDigitalVideoDisc(dvd1);
-//
-//        DigitalVideoDisc dvd2 = new DigitalVideoDisc("Star Wars","Science Fiction","George Lucas",124,24.95f);
-//        anOrder.addDigitalVideoDisc(dvd2);
-//
-//        DigitalVideoDisc dvd3 = new DigitalVideoDisc("Aladin","Animation","John Musker",90,18.99f);
-//        anOrder.addDigitalVideoDisc(dvd3);
-//
-//        System.out.print("The total cost is: ");
-//        System.out.println(anOrder.totalCost());
-        
-//        Lab04
-//        System.out.println("Lab04");
-//
-//        anOrder.ShowOrder();
-//        anOrder.removeDigitalVideoDisc(dvd1);
-//        anOrder.ShowOrder();
-//
-//        DigitalVideoDisc[] dvdlist = {dvd1, dvd2, dvd3,dvd1,dvd2,dvd3,dvd1,dvd2,dvd3};
-//        anOrder.addDigitalVideoDisc(dvd1);
-//        anOrder.printOrderformally();
-//
-//        DigitalVideoDisc dvd4 = new DigitalVideoDisc("How to get A+ in OOP","Lecture","Professor T",30,10.20f);
-//
-//	
-//        Order specialOrder = new Order();
-//        specialOrder.addDigitalVideoDisc(dvd4);
-//        specialOrder.printOrderformally();
-//
-//        Order specialOrder2 = new Order();
-//        Order specialOrder3 = new Order();
-//        Order specialOrder4 = new Order();
-//        Order specialOrder5 = new Order();
-        
-//        Lab05
-//        System.out.printf("\nLab05\n");
-//        
-//        DiskTest.Test();
-    	
-//    	  Lab06 + 7 + 8
-    	MemoryDaemon md = new MemoryDaemon();
-		Thread thread = new Thread(md);
-		thread.setDaemon(true);
-//		thread.start();
-    	showMenu();
-    	
-    		           
-    }
-    
-    public static void showMenu() throws NumberFormatException, IOException, PlayerException {
-    	int Option = -1;
-    	
-    	Order cur_Order = null;
-    	cur_Order = createOrder(cur_Order);
-    	while(true) { 
-	    	System.out.println("Order Management Application: ");
-	    	System.out.println("-------------------------------");
-	    	System.out.println("1. Create new order");
-	    	System.out.println("2. Add item to the order");
-	    	System.out.println("3. Delete item by id");
-	    	System.out.println("4. Display the items list of order");
-	    	System.out.println("5. Sort list");
-	    	System.out.println("6. Load Sample Order");
-	    	System.out.println("0. Exit");
-	    	System.out.println("-------------------------------");
-	    	System.out.println("Please choose a number: 0-1-2-3-4:");
-	    	Option = Integer.parseInt(sysIn.readLine());
-	    	switch (Option) {
-	    		case 1: cur_Order = createOrder(cur_Order); break;
-	    		case 2: addItem(cur_Order); break; 
-	    		case 3: removeItembyID(cur_Order);break;
-	    		case 4: try {
-					cur_Order.printMixedOrderformally();
-				} catch (Exception NullPointerException) {
-					System.out.println("Order not exist!");
-				} break;
-	    		case 5: {
-	    			Collections.sort((List)cur_Order.getItemsOrdered());
-	    			System.out.println("The Order has been sorted");
-	    			break;
-	    		}
-	    		case 6: {
-	    			cur_Order.LoadSampleOrder();
-	    			break;
-	    		}
-	    		default: return;
-	    	}
-    	}
-    }
+import hust.soict.hedspi.aims.thread.MemoryDaemon;
 
-	public static Order createOrder(Order lastOrder) {
-		Order cur_Order = new Order();
-		if (Order.nbOrders <= Order.MAX_LIMITED_ORDERS) {
-			System.out.println("New Order has been created!");
-			return cur_Order;
+public class Aims extends JFrame{
+	public Aims() {
+	}
+	
+	public static void main(String[] args) {
+//		// Create new MemoryDaemon object
+////		MemoryDaemon md = new MemoryDaemon();
+////		Thread thread = new	Thread(md);
+////		thread.setDaemon(true);
+////		thread.start();
+//		
+//		Scanner sc = new Scanner(System.in);
+//		int selection;
+//		int case1 = 0;
+//		Order anOrder = null;
+//		do {
+//			showMenu();
+//			selection = sc.nextInt();
+//			switch (selection) {
+//			case 1:
+//				anOrder = createOrder();
+//				case1 = 1;
+//				break;
+//			case 2:
+//				if(case1 == 0) {
+//					System.err.println("Hay nhap case 1!");
+//					break;
+//				}
+//				int temp = 0;
+//				do {
+//					showMenuMedia();
+//					temp = sc.nextInt();
+//					switch (temp) {
+//					case 1:
+//						sc.nextLine();
+//						addBookToOrder(anOrder);
+//						break;
+//					case 2:
+//						sc.nextLine();
+//						addDvdToOrder(anOrder);
+//						break;
+//					case 3:
+//						sc.nextLine();
+//						addCdToOrder(anOrder);
+//						break;
+//					case 0:
+//						System.out.println("Exit submenu!");
+//						break;
+//					default:
+//						System.err.println("Error input enter, again!");
+//					}
+//				} while (temp != 0);
+//				break;
+//			case 3:
+//				if(case1 == 0) {
+//					System.err.println("Hay nhap case 1!");
+//					break;
+//				}
+//				sc.nextLine();
+//				removeMediaInOrder(anOrder);
+//				break;
+//			case 4:
+//				if(case1 == 0) {
+//					System.err.println("Hay nhap case 1!");
+//					break;
+//				}
+//				if(anOrder.itemsOrdered.isEmpty()) {
+//					System.err.println("List of Order is empty!");
+//				}else {
+//					anOrder.printListOfOrdered();
+//				}
+//				break;
+//			case 0:
+//				sc.close();
+//				System.out.println("Bye!!!");
+//				break;
+//			default:
+//				System.err.println("Error input enter, again!");
+//			}
+//		} while (selection != 0);
+		new MenuFrame(new JFrame());
+	}
+	
+
+	private static void removeMediaInOrder(Order anOrder) {
+		Scanner sc = new Scanner(System.in);
+		System.out.printf("Nhap id: ");
+		String id = sc.nextLine();
+		anOrder.removeMedia(id);
+	}
+
+	private static void addCdToOrder(Order anOrder) {
+		Scanner sc = new Scanner(System.in);
+		System.out.printf("\tNhap id: ");
+		String id = sc.nextLine();
+		System.out.printf("\tNhap title: ");
+		String title = sc.nextLine();
+		System.out.printf("\tNhap category: ");
+		String category = sc.nextLine();
+		System.out.printf("\tNhap artist: ");
+		String artist = sc.nextLine();
+		System.out.printf("\tNhap cost: ");
+		float cost = sc.nextFloat();
+		CompactDisc cd = new CompactDisc(id, title, category, artist, cost);
+		System.out.printf("\tSo luong Track: ");
+		int count = sc.nextInt();
+		while(count <= 0) {
+			System.err.println("So luong Track phai lon hon 0");
+			System.out.printf("\tSo luong Track: ");
+			count = sc.nextInt();
 		}
-		else {
-			System.out.println("New order has not been created due to number of orders exceeded limit!");
-			return lastOrder;
-		}		
+		sc.nextLine();
+		Track track = null;
+		String titleTrack;
+		int lengthTrack;
+		for(int i = 0; i < count; i++) {
+			System.out.println("***\tTrack " + (i+1));
+			System.out.printf("\tNhap title cua track: ");
+			titleTrack = sc.nextLine();
+			System.out.printf("\tNhap length cua track: ");
+			lengthTrack = sc.nextInt();
+			track = new Track(titleTrack, lengthTrack);
+			cd.addTrack(track);
+			sc.nextLine();
+		}
+		String ask;
+		do {
+			System.out.printf("***\tBan muon nghe thu khong(yes|no): ");
+			ask = sc.nextLine();
+			switch (ask) {
+			case "yes":
+				System.out.println("===============================");
+//				cd.play();
+				System.out.println("===============================");
+				break;
+			case "no":
+				break;
+			default:
+				System.err.println("Nhap sai cu phap");
+			}
+		} while (ask.equalsIgnoreCase("yes") == false && ask.equalsIgnoreCase("no") == false);
+		anOrder.addMedia(cd);
 	}
-	
-	public static void addItem(Order cur_Order) throws NumberFormatException, IOException, PlayerException {
-    	int Option = -1;
-    	
-    	while(true) { 
-	    	System.out.println("Which type of item do you want to add ");
-	    	System.out.println("-------------------------------");
-	    	System.out.println("1. Book");
-	    	System.out.println("2. DigitalVideoDisc");
-	    	System.out.println("3. CompactDisc");	
-	    	System.out.println("0. Return to Main Menu");
-	    	System.out.println("-------------------------------");
-	    	System.out.println("Please choose a number: 0-1-2-3:");
-	    	Option = Integer.parseInt(sysIn.readLine());
-	    	switch (Option) {
-	    		case 1: {
-	    			Book book = new Book();
-	    			book.id = Order.InputItemId();
-	    			cur_Order.addBook(book);			
-	    			break;
-	    		}
-	    		case 2: {
-	    			DigitalVideoDisc dvd = new DigitalVideoDisc();
-	    			dvd.id = Order.InputItemId();
-	    			cur_Order.addDigitalVideoDisc(dvd);	 
-	    			if(Order.UserConfirmToPlay("DVD"))
-						try {
-							dvd.play();
-						} catch (PlayerException e) {
-							e.printStackTrace();
-							System.err.println(e.getMessage());
-							System.err.println(e.toString());
-						}
-	    			break; 
-	    		}
-	    		case 3: {
-	    			CompactDisc cd = new CompactDisc();
-	    			cd.id = Order.InputItemId();
-	    			cur_Order.addCompactDisc(cd);
-	    			if(Order.UserConfirmToPlay("CD"))
-						try {
-							cd.play();
-						} catch (PlayerException e) {
-							e.printStackTrace();
-							System.err.println(e.getMessage());
-							System.err.println(e.toString());
-						}
-	    			break;
-	    		}
-	    		default: return;
-	    	}
-    	}
-	}
-	
-	public static void removeItembyID(Order cur_Order) throws NumberFormatException, IOException {
-		int id = -1;
-		System.out.println("Enter id of item to be removed: ");
-		id = Integer.parseInt(sysIn.readLine());
-		cur_Order.removeMediaByID(id);
-		System.out.println("Removal opreation ended ");
-	}
-}
 
+	private static void addDvdToOrder(Order anOrder) {
+		Scanner sc = new Scanner(System.in);
+		System.out.printf("\tNhap id: ");
+		String id = sc.nextLine();
+		System.out.printf("\tNhap title: ");
+		String title = sc.nextLine();
+		System.out.printf("\tNhap category: ");
+		String category = sc.nextLine();
+		System.out.printf("\tNhap director: ");
+		String director = sc.nextLine();
+		System.out.printf("\tNhap cost: ");
+		float cost = sc.nextFloat();
+		System.out.printf("\tNhap length: ");
+		int length = sc.nextInt();
+		sc.nextLine();
+		DigitalVideoDisc dvd = new DigitalVideoDisc(id, title, category, length, director, cost);
+		String ask;
+		do {
+			System.out.printf("***\tBan muon nghe thu khong(yes|no): ");
+			ask = sc.nextLine();
+			switch (ask) {
+			case "yes":
+				System.out.println("===============================");
+				try {
+					dvd.play();
+				} catch (PlayerException e) {
+					System.err.println(e.getMessage());
+				}
+				System.out.println("===============================");
+				break;
+			case "no":
+				break;
+			default:
+				System.err.println("Nhap sai cu phap");
+			}
+		} while (ask.equalsIgnoreCase("yes") == false && ask.equalsIgnoreCase("no") == false);
+		anOrder.addMedia(dvd);
+	}
+
+	private static void addBookToOrder(Order anOrder) {
+		Scanner sc = new Scanner(System.in);
+		System.out.printf("\tNhap id: ");
+		String id = sc.nextLine();
+		System.out.printf("\tNhap title: ");
+		String title = sc.nextLine();
+		System.out.printf("\tNhap category: ");
+		String category = sc.nextLine();
+		System.out.printf("\tNhap cost: ");
+		float cost = sc.nextFloat();
+		// constructor a book without AuthorsList
+		Book aBook = new Book(id, title, category, cost);
+		System.out.printf("\tNhap so luong authors: ");
+		int iAuthors = sc.nextInt();
+		while(iAuthors <= 0) {
+			System.err.println("So luong authors phai lon hon 0");
+			System.out.printf("\tNhap so luong authors: ");
+			iAuthors = sc.nextInt();
+		}
+		// loai bo dem 
+		sc.nextLine();
+		// Add author
+		while(iAuthors > 0) {
+			System.out.printf("\tNhap author: ");
+			String author = sc.nextLine();
+			aBook.addAuthor(author);
+			iAuthors--;
+		}
+		anOrder.addMedia(aBook);
+	}
+
+	private static Order createOrder() {
+		try {
+			Order anOrder;
+			anOrder = Order.createdOrder();
+			System.out.println("***Creat new order successfully!");
+			return anOrder;
+		} catch (CreateOrderException e) {
+			System.err.println(e.getMessage());
+		}
+	}
+	
+	// Maintain menu
+	public static void showMenu() {
+		System.out.println("Order Management Application: "); 
+		System.out.println("--------------------------------"); 
+		System.out.println("1. Create new order"); 
+		System.out.println("2. Add item to the order"); 
+		System.out.println("3. Delete item by id"); 
+		System.out.println("4. Display the items list of order"); 
+		System.out.println("0. Exit"); 
+		System.out.println("--------------------------------"); 
+		System.out.println("Please choose a number: 0-1-2-3-4");
+	}
+	
+	// Menu select Book or DVD
+	public static void showMenuMedia() {
+		System.out.println("Select add Book or DVD "); 
+		System.out.println("--------------------------------"); 
+		System.out.println("1. Book"); 
+		System.out.println("2. DVD"); 
+		System.out.println("3. CD"); 
+		System.out.println("0. Exit"); 
+		System.out.println("--------------------------------"); 
+		System.out.println("Please choose a number: 0-1-2-3");
+	}
+	
+}

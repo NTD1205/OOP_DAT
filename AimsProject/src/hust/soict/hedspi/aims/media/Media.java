@@ -1,68 +1,67 @@
 package hust.soict.hedspi.aims.media;
 
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
+import hust.soict.hedspi.aims.media.book.Book;
+import hust.soict.hedspi.aims.media.disc.CompactDisc;
+import hust.soict.hedspi.aims.media.disc.DigitalVideoDisc;
 
-public abstract class Media implements Comparable<Object>{
-
-	
-	public Media() {
-	}
-	public Media(String title) {
-		this.title = title;
-	}
-	public Media(String title, String category) {
-		this(title);
-		this.category = category;
-	}
-	public Media(String title, String category,float cost) {
-		this(title,category);
-		this.cost = cost;
-	}
-
-	protected static BufferedReader sysIn = new BufferedReader(new InputStreamReader(System.in));
+public abstract class Media implements Comparable<Media>{
 	protected String title;
 	protected String category;
 	protected float cost;
-	public String id;
+	protected String id;
+	
 	public String getId() {
 		return id;
 	}
-	
-	public static final int MAX_NUMBERS_ORDERED = 10;
-	public static final int MAX_LIMITED_ORDERS = 5;
-	
+
 	public String getTitle() {
 		return title;
 	}
+
 	public String getCategory() {
 		return category;
 	}
+
 	public float getCost() {
 		return cost;
 	}
 	
-	public void addMedia() {
-		
+	public Media(String id, String title, float cost) {
+		this.id = id;
+		this.title = title;
+		this.cost = cost;
 	}
 	
-	@Override
-	public boolean equals(Object obj) {    
-        if (obj == this) { 
-            return true; 
-        } 
-        if (!(obj instanceof Media)) { 
-            return false; 
-        } 
-        Media media2 = (Media) obj; 
-        return (this.title == media2.title && this.cost == media2.cost);
-    } 
-	
-	@Override
-	public int compareTo(Object o) {
-		Media media2 = (Media) o;
-		if(this.equals(media2)) 
-			return 0;
-		return this.id.compareTo(media2.id);
+	public Media(String id, String title, String category, float cost) {
+		this(id, title, cost);
+		this.category = category;
 	}
+	
+	public boolean equals(Object temp) throws NullPointerException, ClassCastException{
+		if(temp != null) {
+			if(temp instanceof Media) {
+				if(this.getTitle().equalsIgnoreCase( ((Media)temp).getTitle() ) && this.getCost() == ((Media)temp).getCost())
+					return true;
+				return false;				
+			}else {
+				throw new ClassCastException("ERROR: Object casting");
+			}
+		}else {
+			throw new NullPointerException("ERROR: Null pointerexception");
+		}
+	}
+	
+	public int compareTo(Media media) {
+		if (this instanceof Book && (media instanceof DigitalVideoDisc || media instanceof CompactDisc)) {
+			return -1;
+		}
+		if(this instanceof DigitalVideoDisc && media instanceof CompactDisc)
+			return -1;
+		if(this instanceof CompactDisc && (media instanceof DigitalVideoDisc || media instanceof Book))
+			return 1;
+		if(this instanceof DigitalVideoDisc && media instanceof Book)
+			return 1;
+		return 0;
+	}
+
 }
